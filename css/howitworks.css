@@ -1,0 +1,52 @@
+#how {
+    max-width: none;
+    background-color: var(--color-surface-alt);
+}
+
+#how h2,
+#how .steps-grid {
+    max-width: calc(var(--container-max) - (var(--container-gutter) * 2));
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+    margin-top: var(--space-2xl);
+}
+
+.step {
+    background-color: var(--color-surface);
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background-color: var(--color-dark);
+    color: var(--color-accent);
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-xs);
+}
+
+.step p {
+    color: var(--color-text-muted);
+}
+
+@media (min-width: 1024px) {
+    .steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

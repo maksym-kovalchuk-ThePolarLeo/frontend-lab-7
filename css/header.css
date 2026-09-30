@@ -1,0 +1,206 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-surface);
+    border-bottom: var(--border-width) solid var(--color-border);
+    position: relative;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.logo span {
+    font-size: 1.375rem; /* 22px */
+    font-weight: var(--font-weight-bold);
+}
+
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    height: 44px;
+    padding: 0 var(--space-md); /* 0 16px */
+    background: transparent;
+    border: var(--border-width) solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.menu-toggle:hover {
+    background-color: var(--color-background);
+}
+
+/* Іконка гамбургера (створюємо через CSS, щоб не тягнути зайвий SVG) */
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px; /* Крок 6px: лінія 2px + проміжок 4px */
+    width: 18px;
+    height: 14px;
+}
+
+.menu-icon span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-text);
+    border-radius: 2px;
+    transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+/*
+ * Мобільне меню (за замовчуванням < 1024px)
+ */
+#mobile-menu {
+    display: none; /* Приховано за замовчуванням */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-lg) var(--container-gutter) var(--space-xl); /* 24px зверху, 32px знизу */
+    flex-direction: column;
+}
+
+/* Клас для відкриття меню через JS */
+#mobile-menu.is-open {
+    display: flex;
+}
+
+#mobile-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+#mobile-menu li {
+    border-bottom: var(--border-width) solid var(--color-border);
+}
+
+#mobile-menu a:not(.btn) {
+    display: block;
+    font-size: 1.0625rem; /* 17px */
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    text-decoration: none;
+    padding: var(--space-sm) 0; /* 12px по вертикалі */
+}
+
+/* Відступ від списку до кнопки */
+#mobile-menu .btn {
+    margin-top: var(--space-lg); /* 24px */
+    width: 100%; /* На всю ширину */
+    text-align: center;
+    justify-content: center;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/*
+ * Десктопна навігація (≥ 1024px)
+ */
+@media (min-width: 1024px) {
+    .menu-toggle {
+        display: none; /* Ховаємо кнопку гамбургера */
+    }
+
+    #mobile-menu {
+        display: flex; /* Показуємо меню завжди */
+        position: static;
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+        background-color: transparent;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    /* Скасовуємо клас is-open, якщо він залишився від мобільної версії */
+    #mobile-menu.is-open {
+        display: flex;
+    }
+
+    #mobile-menu ul {
+        flex-direction: row;
+        gap: var(--space-xl); /* 32px між посиланнями */
+        margin-right: var(--space-2xl); /* 48px від навігації до кнопки */
+    }
+
+    #mobile-menu li {
+        border-bottom: none;
+    }
+
+    #mobile-menu a:not(.btn) {
+        font-size: var(--font-size-base); /* 16px */
+        padding: 0;
+        transition: color var(--transition-fast);
+    }
+
+    #mobile-menu a:not(.btn):hover {
+        color: var(--color-primary);
+    }
+
+    #mobile-menu .btn {
+        margin-top: 0;
+        width: auto;
+    }
+}
+
+/* ==========================================================================
+   КНОПКИ (Глобальні стилі для .btn, оскільки вони є в Header)
+   ========================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    height: var(--control-height); /* 48px */
+    padding: 0 var(--space-lg); /* 0 24px */
+    border: 2px solid transparent;
+    border-radius: var(--radius-md); /* 12px */
+    font-size: var(--font-size-base); /* 16px */
+    font-weight: var(--font-weight-semibold);
+    font-family: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+/* Primary (За замовчуванням для .btn) */
+.btn {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+}
+
+.btn:hover {
+    background-color: var(--color-primary-hover);
+}
